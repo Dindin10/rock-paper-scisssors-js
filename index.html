@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>RPS Game</title>
+    </head>
+    <body>
+        <script>
+            // create a function that returns the computer choice and make sure it's random
+            function getComputerChoice() {
+                let result = "";
+                let randomNum = Math.floor(Math.random() * 10);
+
+                if (randomNum <= 3) {
+                    return result = "rock";
+                }
+                else if (randomNum >= 7) {
+                    return result = "scissors";
+                }
+                else {
+                    return result = "paper";
+                }
+            }
+        </script>
+    </body>
+</html>

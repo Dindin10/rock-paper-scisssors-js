@@ -27,48 +27,66 @@
                 return prompt("Rock, paper or scissors?").toLowerCase();
             }
 
-            // create a function to play a round and decide a winner
-            function playRound(humanChoice, computerChoice) {
-                if (computerChoice == "rock") {
+            // create a function that plays 5 rounds, keeps track of the score and declares the winner
+            function playGame() {
+
+                // create a function to play a round and decide a winner
+                function playRound(humanChoice, computerChoice) {
+                    if (computerChoice == "rock") {
+                        switch(humanChoice) {
+                            case "rock":
+                                return "Draw!"
+                            case "paper":
+                                humanScore++;
+                                return "You won! Paper beats Rock"
+                            case "scissors":
+                                computerScore++;
+                                return "You lose! Rock beats Scissors"
+                        }
+                    }
+                    else if (computerChoice == "paper") {
+                        switch(humanChoice) {
+                            case "rock":
+                                computerScore++;
+                                return "You lose! Paper beats Rock"
+                            case "paper":
+                                return "Draw!"
+                            case "scissors":
+                                humanScore++;
+                                return "You won! Scissors beats Paper"
+                        }
+                    }
                     switch(humanChoice) {
                         case "rock":
-                            return "Draw!"
-                        case "paper":
                             humanScore++;
-                            return "You won! Paper beats Rock"
-                        case "scissors":
+                            return "You won! Rock beats Scissors"
+                        case "paper":
                             computerScore++;
-                            return "You lose! Rock beats Scissors"
+                            return "You lose! Scissors beats Paper"
+                        case "scissors":
+                            return "Draw!"
                     }
                 }
-                else if (computerChoice == "paper") {
-                    switch(humanChoice) {
-                        case "rock":
-                            computerScore++;
-                            return "You lose! Paper beats Rock"
-                        case "paper":
-                            return "Draw!"
-                        case "scissors":
-                            humanScore++;
-                            return "You won! Scissors beats Paper"
+
+                // declare score variable
+                let humanScore = 0;
+                let computerScore = 0;
+                // create a loop that keeps playing rounds until a winner is declared
+                while(true) {
+                    if (humanScore == 3) {
+                        console.log("Congrats! You beat the computer!")
+                        break
                     }
-                }
-                switch(humanChoice) {
-                    case "rock":
-                        humanScore++;
-                        return "You won! Rock beats Scissors"
-                    case "paper":
-                        computerScore++;
-                        return "You lose! Scissors beats Paper"
-                    case "scissors":
-                        return "Draw!"
-                }
-            }
-            
-            let humanScore = 0;
-            let computerScore = 0;
+                    else if (computerScore == 3) {
+                        console.log("Too bad! You lost to the computer!")
+                        break
+                    }
+                    const humanSelection = getHumanChoice();
+                    const computerSelection = getComputerChoice();
 
-
+                    console.log(playRound(humanSelection, computerSelection));
+                }
+            }            
         </script>
     </body>
 </html>

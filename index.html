@@ -70,6 +70,8 @@
 
             const submitted = document.querySelector(".container");
             const display = document.querySelector(".display-container");
+
+            // add an event listener to the parent div of buttons to use event delegation
             submitted.addEventListener("click", (e) => {
                 let verdict = document.createElement("p");
                 verdict.textContent = playRound(e.target.id, getComputerChoice());
@@ -78,35 +80,25 @@
                 currHumanScore.textContent = `Human Score: ${humanScore}`;
                 currComputerScore.textContent = `Computer Score: ${computerScore}`;
                 display.appendChild(verdict);
+
+                if (humanScore === 5) {
+                    let humanWin = document.createElement("h3");
+                    humanWin.textContent = "Congrats! You beat the computer!";
+                    display.appendChild(humanWin);
+                    humanScore = 0;
+                    computerScore = 0;
+                }
+                else if (computerScore === 5) {
+                    let computerWin = document.createElement("h3");
+                    computerWin.textContent = "Too bad! You lost to the computer!";
+                    display.appendChild(computerWin);
+                    computerScore = 0;
+                    humanScore = 0;
+                }
             })
 
             let humanScore = 0;
-            let computerScore = 0;
-
-
-
-            // // create a function that plays 5 rounds, keeps track of the score and declares the winner
-            // function playGame() {
-
-            //     // declare score variable
-            //     let humanScore = 0;
-            //     let computerScore = 0;
-            //     // create a loop that keeps playing rounds until a winner is declared
-            //     while(true) {
-            //         if (humanScore == 3) {
-            //             console.log("Congrats! You beat the computer!")
-            //             break
-            //         }
-            //         else if (computerScore == 3) {
-            //             console.log("Too bad! You lost to the computer!")
-            //             break
-            //         }
-            //         const humanSelection = getHumanChoice();
-            //         const computerSelection = getComputerChoice();
-
-            //         console.log(playRound(humanSelection, computerSelection));
-            //     }
-            // }            
+            let computerScore = 0;      
         </script>
     </body>
 </html>

@@ -5,88 +5,108 @@
         <title>RPS Game</title>
     </head>
     <body>
+        <div class="container">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+        <div class="display-container">
+            <p class="humanScore">Human Score: 0</p>
+            <p class="computerScore">Computer Score: 0</p>
+        </div>
         <script>
             // create a function that returns the computer choice and make sure it's random
             function getComputerChoice() {
-                let result = "";
-                let randomNum = Math.floor(Math.random() * 10);
+                let randomNum = Math.floor(Math.random() * 3);
 
-                if (randomNum <= 3) {
-                    return result = "rock";
+                if (randomNum === 0) {
+                    return "rock";
                 }
-                else if (randomNum >= 7) {
-                    return result = "scissors";
+                else if (randomNum === 1) {
+                    return "paper";
                 }
                 else {
-                    return result = "paper";
+                    return "scissors";
                 }
             }
 
-            // create a function that returns the human choice by prompting the human
-            function getHumanChoice() {
-                return prompt("Rock, paper or scissors?").toLowerCase();
-            }
-
-            // create a function that plays 5 rounds, keeps track of the score and declares the winner
-            function playGame() {
-
-                // create a function to play a round and decide a winner
-                function playRound(humanChoice, computerChoice) {
-                    if (computerChoice == "rock") {
-                        switch(humanChoice) {
-                            case "rock":
-                                return "Draw!"
-                            case "paper":
-                                humanScore++;
-                                return "You won! Paper beats Rock"
-                            case "scissors":
-                                computerScore++;
-                                return "You lose! Rock beats Scissors"
-                        }
-                    }
-                    else if (computerChoice == "paper") {
-                        switch(humanChoice) {
-                            case "rock":
-                                computerScore++;
-                                return "You lose! Paper beats Rock"
-                            case "paper":
-                                return "Draw!"
-                            case "scissors":
-                                humanScore++;
-                                return "You won! Scissors beats Paper"
-                        }
-                    }
+            // create a function to play a round and decide a winner
+            function playRound(humanChoice, computerChoice) {
+                if (computerChoice == "rock") {
                     switch(humanChoice) {
                         case "rock":
-                            humanScore++;
-                            return "You won! Rock beats Scissors"
-                        case "paper":
-                            computerScore++;
-                            return "You lose! Scissors beats Paper"
-                        case "scissors":
                             return "Draw!"
+                        case "paper":
+                            humanScore++;
+                            return "You won! Paper beats Rock"
+                        case "scissors":
+                            computerScore++;
+                            return "You lose! Rock beats Scissors"
                     }
                 }
-
-                // declare score variable
-                let humanScore = 0;
-                let computerScore = 0;
-                // create a loop that keeps playing rounds until a winner is declared
-                while(true) {
-                    if (humanScore == 3) {
-                        console.log("Congrats! You beat the computer!")
-                        break
+                else if (computerChoice == "paper") {
+                    switch(humanChoice) {
+                        case "rock":
+                            computerScore++;
+                            return "You lose! Paper beats Rock"
+                        case "paper":
+                            return "Draw!"
+                        case "scissors":
+                            humanScore++;
+                            return "You won! Scissors beats Paper"
                     }
-                    else if (computerScore == 3) {
-                        console.log("Too bad! You lost to the computer!")
-                        break
-                    }
-                    const humanSelection = getHumanChoice();
-                    const computerSelection = getComputerChoice();
-
-                    console.log(playRound(humanSelection, computerSelection));
                 }
-            }            
+                switch(humanChoice) {
+                    case "rock":
+                        humanScore++;
+                        return "You won! Rock beats Scissors"
+                    case "paper":
+                        computerScore++;
+                        return "You lose! Scissors beats Paper"
+                    case "scissors":
+                        return "Draw!"
+                }
+            }
+
+            const submitted = document.querySelector(".container");
+            const display = document.querySelector(".display-container");
+            submitted.addEventListener("click", (e) => {
+                let verdict = document.createElement("p");
+                verdict.textContent = playRound(e.target.id, getComputerChoice());
+                let currHumanScore = display.querySelector(".humanScore");
+                let currComputerScore = display.querySelector(".computerScore");
+                currHumanScore.textContent = `Human Score: ${humanScore}`;
+                currComputerScore.textContent = `Computer Score: ${computerScore}`;
+                display.appendChild(verdict);
+            })
+
+            let humanScore = 0;
+            let computerScore = 0;
+
+
+
+            // // create a function that plays 5 rounds, keeps track of the score and declares the winner
+            // function playGame() {
+
+            //     // declare score variable
+            //     let humanScore = 0;
+            //     let computerScore = 0;
+            //     // create a loop that keeps playing rounds until a winner is declared
+            //     while(true) {
+            //         if (humanScore == 3) {
+            //             console.log("Congrats! You beat the computer!")
+            //             break
+            //         }
+            //         else if (computerScore == 3) {
+            //             console.log("Too bad! You lost to the computer!")
+            //             break
+            //         }
+            //         const humanSelection = getHumanChoice();
+            //         const computerSelection = getComputerChoice();
+
+            //         console.log(playRound(humanSelection, computerSelection));
+            //     }
+            // }            
         </script>
     </body>
 </html>
